@@ -8,6 +8,7 @@ package Modelo;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,9 +17,10 @@ import javax.swing.JComboBox;
 public class SuperheroeBO {
     private String mensaje = "";
     private SuperheroeDAO sdao = new SuperheroeDAO();
+    Connection conn;
     
     public void ListarSuperheroe (JComboBox nom_superheroe)throws SQLException{
-        Connection conn = conexion.getConnection();
+         conn = conexion.getConnection();
         try {
             sdao.ListarSuperheroe(conn, nom_superheroe);
             conn.close();
@@ -34,6 +36,47 @@ public class SuperheroeBO {
             }
         }
     
-    }   
+    } 
+    public void ListarArma (JComboBox nom_arma) throws SQLException{
+         conn = conexion.getConnection();
+         try{
+             sdao.ListarArma(conn, nom_arma);
+             conn.close();
+         }catch(SQLException e){
+             conn.rollback();
+         }finally{
+             try{
+                 if(conn!=null){
+                     conn.close();                             
+                 }
+             }catch(SQLException e){
+                 System.err.println(e.getMessage());
+             }
+         }
+   
+        
+    
+    }
+     public int consultaVidaHeroe (String sel_heroe)throws SQLException{
+         int vida = 0;
+         conn = conexion.getConnection();
+         try {
+             vida = sdao.consultaVidaHeroe(conn, sel_heroe);             
+             conn.commit();
+         } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null, e.getMessage());
+             conn.rollback();         
+         }finally{
+           try{
+               if(conn!= null){
+                   conn.close();
+               }
+           }catch(SQLException e){
+             JOptionPane.showMessageDialog(null, e.getMessage());
+           }
+       }       
+        return vida;
+ }
+   
     
 }

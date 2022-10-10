@@ -114,12 +114,7 @@
         <Component class="javax.swing.JComboBox" name="lst_arma">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Hacha"/>
-                <StringItem index="1" value="Escudo"/>
-                <StringItem index="2" value="Laser"/>
-                <StringItem index="3" value="Pu&#xf1;o"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -179,12 +174,7 @@
         <Component class="javax.swing.JComboBox" name="lst_heroe_recibe">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Hulk"/>
-                <StringItem index="1" value="Hombre Ara&#xf1;a"/>
-                <StringItem index="2" value="Iron Man"/>
-                <StringItem index="3" value="Capitan America"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>

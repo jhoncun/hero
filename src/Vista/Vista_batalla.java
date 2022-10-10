@@ -44,8 +44,6 @@ public class Vista_batalla extends javax.swing.JFrame {
 
         jLabel1.setText("Heroe");
 
-        lst_arma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hacha", "Escudo", "Laser", "Puño" }));
-
         jLabel4.setText("arma");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -78,8 +76,6 @@ public class Vista_batalla extends javax.swing.JFrame {
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        lst_heroe_recibe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hulk", "Hombre Araña", "Iron Man", "Capitan America" }));
 
         jLabel2.setText("Heroe");
 

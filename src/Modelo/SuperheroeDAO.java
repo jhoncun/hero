@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,12 +25,48 @@ public class SuperheroeDAO {
         try {
             pst = conn.prepareStatement(sql);
             ResultSet result = pst.executeQuery();
-            while (result.next()) {                
+            while (result.next()) {             
+                
                 nom_superheroe.addItem(result.getString("nom_super"));
             }
         } catch (SQLException | NullPointerException e) {
             System.out.println("No se pudo listar el nombre del superheroe");
         }   
     }
+    
+     public void ListarArma (Connection conn, JComboBox nom_arma){
+        PreparedStatement pst;
+        String tabla = "arma";        
+        String sql = "select nom_arma from " +tabla;
+        try {
+            pst = conn.prepareStatement(sql);
+            ResultSet result = pst.executeQuery();
+            while (result.next()) {                
+                nom_arma.addItem(result.getString("nom_arma"));
+            }
+        } catch (SQLException | NullPointerException e) {
+            System.out.println("No se pudo listar el nombre del superheroe");
+        }   
+    }
+     
+     public int consultaVidaHeroe (Connection conn, String sel_heroe){
+         int vida = 0;
+         PreparedStatement pst = null;
+         String tabla = "superheroe";         
+         String sql = "select vida_super from " + tabla + " where nom_super =  ? ";        
+         try{
+             pst = conn.prepareStatement(sql);             
+             pst.setString(1,sel_heroe);             
+             ResultSet rs = pst.executeQuery();
+             while(rs.next()){
+                  vida = rs.getInt("vida_super");
+             }             
+             pst.execute();
+             pst.close();
+         }catch(SQLException | NullPointerException e){
+             System.out.print("Error no hay vida: " + e.getMessage());
+         }
+           return vida;    
+     }
     
 }
