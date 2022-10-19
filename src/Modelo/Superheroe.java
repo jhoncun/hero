@@ -12,12 +12,14 @@ package Modelo;
 public class Superheroe {
        private String nombre;
        private int salud;     
-       private String arma;
+       private int danno;
+       private int proteccion;
 
-    public Superheroe(String nombre, int salud,String arma) {
+    public Superheroe(String nombre, int salud,int danno, int proteccion) {
         this.nombre = nombre;
         this.salud = salud;        
-        this.arma = arma;
+        this.danno = danno;
+        this.proteccion = proteccion;
     }
 
     public Superheroe() {
@@ -40,40 +42,28 @@ public class Superheroe {
         this.salud = salud;
     }
 
-    public String getArma() {
-        return arma;
+    public int getDanno() {
+        return danno;
     }
 
-    public void setArma(String arma) {
-        this.arma = arma;
+    public int getProteccion() {
+        return proteccion;
+    }
+
+    public void setDanno(int danno) {
+        this.danno = danno;
+    }
+
+    public void setProteccion(int proteccion) {
+        this.proteccion = proteccion;
     }  
     
        
-    public String atacar(Superheroe victima){
-            int daño = 0;     
+    public String atacar(Superheroe victima){          
             int res;
-            String msg;
-           /*
-            Hacha
-            Escudo
-            Laser
-            Puño*/            
-            switch(this.arma){
-                    case "Hacha":
-                        daño = 40;                        
-                    break;
-                    case "Escudo":
-                        daño = 30;                        
-                    break;
-                     case "Laser":
-                        daño = 20;                        
-                    break;
-                     case "Puño":
-                        daño = 5;                        
-                    break; 
+            String msg;                    
             
-            }            
-        res = victima.salud - daño;      
+        res = victima.salud  ;      
         if(res <=0){
             msg = "El atacante gano!";
         }else{

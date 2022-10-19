@@ -77,6 +77,25 @@ public class SuperheroeBO {
        }       
         return vida;
  }
-   
+   public int consultaArmaHeroe (String sel_arma)throws SQLException{
+         int danno = 0;
+         conn = conexion.getConnection();
+         try {
+             danno = sdao.consultaArmaHeroe(conn, sel_arma);             
+             conn.commit();
+         } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null, e.getMessage());
+             conn.rollback();         
+         }finally{
+           try{
+               if(conn!= null){
+                   conn.close();
+               }
+           }catch(SQLException e){
+             JOptionPane.showMessageDialog(null, e.getMessage());
+           }
+       }       
+        return danno;
+ }
     
 }

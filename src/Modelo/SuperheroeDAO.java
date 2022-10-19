@@ -30,7 +30,7 @@ public class SuperheroeDAO {
                 nom_superheroe.addItem(result.getString("nom_super"));
             }
         } catch (SQLException | NullPointerException e) {
-            System.out.println("No se pudo listar el nombre del superheroe");
+            System.out.println("No se pudo listar el nombre del superheroe" + e.getMessage());
         }   
     }
     
@@ -67,6 +67,25 @@ public class SuperheroeDAO {
              System.out.print("Error no hay vida: " + e.getMessage());
          }
            return vida;    
+     }
+     public int consultaArmaHeroe (Connection conn, String sel_arma){
+         int danno = 0;
+         PreparedStatement pst = null;
+         String tabla = "arma";         
+         String sql = "select danno_arma from " + tabla + " where nom_arma =  ? ";        
+         try{
+             pst = conn.prepareStatement(sql);             
+             pst.setString(1,sel_arma);             
+             ResultSet rs = pst.executeQuery();
+             while(rs.next()){
+                  danno = rs.getInt("danno_arma");
+             }             
+             pst.execute();
+             pst.close();
+         }catch(SQLException | NullPointerException e){
+             System.out.print("Error no hay vida: " + e.getMessage());
+         }
+           return danno;    
      }
     
 }
