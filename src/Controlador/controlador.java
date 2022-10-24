@@ -9,7 +9,6 @@ package Controlador;
 import Vista.Vista_batalla;
 import Modelo.Superheroe;
 import Modelo.SuperheroeBO;
-import Modelo.SuperheroeDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -31,13 +30,14 @@ public class controlador implements ActionListener{
         vista.btn_atacar.addActionListener(this);
         ListarSuperheroe();
         ListarArma();
-        
+        ListarEscudo();
     }
     public void iniciar_vista(){
         vista.setTitle("Batalla de heroes!!!!!!!!!!!!!");
         vista.setLocationRelativeTo(null);  
-        vista.setLocation(200, 100);
+        
     }
+    //Metodos de Accion
     public void ListarSuperheroe(){
         try {
            subo.ListarSuperheroe(vista.lst_heroe_ataca);
@@ -53,6 +53,15 @@ public class controlador implements ActionListener{
             System.out.print("No hay armas registradas");
         }
     }
+    public void ListarEscudo(){
+        try{
+            subo.ListarEscudo(vista.lst_heroe_escudo);
+        }catch(SQLException e){
+            System.out.print("No hay escudos registrados");
+        }
+    }
+    
+    
     public int consultaVidaHeroe(String nom_heroe){
         int vida = 0;
         try {
@@ -75,6 +84,20 @@ public class controlador implements ActionListener{
         }
         return danno;
     }
+      public int consultaEscudoHeroe(String nom_esc){
+        int proteccion = 0;
+        try {
+            proteccion = subo.consultaEscudoHeroe(nom_esc);
+           
+        } catch (SQLException e) {
+           System.out.print("No hay registro de vidas del heroe");
+
+        }
+        return proteccion;
+    }  
+      
+      
+      //Fin metodos de accion
     
     
     
@@ -85,15 +108,16 @@ public class controlador implements ActionListener{
         int salud_victima = consultaVidaHeroe((String)vista.lst_heroe_recibe.getSelectedItem()); 
         int salud_ataca = consultaVidaHeroe((String)vista.lst_heroe_ataca.getSelectedItem());
         int danno_arma = consultaArmaHeroe((String)vista.lst_arma.getSelectedItem());
-       
+        int proteccion = consultaEscudoHeroe((String)vista.lst_heroe_escudo.getSelectedItem());
+        
         if(e.getSource() == vista.btn_atacar){
             String nom_atacante = String.valueOf(vista.lst_heroe_ataca.getSelectedItem());
             String arma_atacante = String.valueOf(vista.lst_arma.getSelectedItem());
             String nom_victima = String.valueOf(vista.lst_heroe_recibe.getSelectedItem());              
                         
-            Superheroe victima = new Superheroe(nom_victima,salud_victima,danno_arma);            
-            Superheroe atacante = new Superheroe(nom_atacante,salud_ataca,danno_arma);
-            vista.lbl_resultado.setText("El resultado es: "+atacante.atacar(victima));  
+            Superheroe victima = new Superheroe(nom_victima,salud_victima,0,proteccion);            
+            Superheroe atacante = new Superheroe(nom_atacante,salud_ataca,danno_arma,0);
+            vista.lbl_resultado.setText("El resultado es: "+atacante.atacar(victima,atacante));  
             
 //            
         

@@ -52,11 +52,27 @@ public class SuperheroeBO {
              }catch(SQLException e){
                  System.err.println(e.getMessage());
              }
-         }
-   
-        
-    
+         }   
     }
+     public void ListarEscudo (JComboBox nom_arma) throws SQLException{
+         conn = conexion.getConnection();
+         try{
+             sdao.ListarEscudo(conn, nom_arma);
+             conn.close();
+         }catch(SQLException e){
+             conn.rollback();
+         }finally{
+             try{
+                 if(conn!=null){
+                     conn.close();                             
+                 }
+             }catch(SQLException e){
+                 System.err.println(e.getMessage());
+             }
+         }   
+    }
+    
+    
      public int consultaVidaHeroe (String sel_heroe)throws SQLException{
          int vida = 0;
          conn = conexion.getConnection();
@@ -96,6 +112,26 @@ public class SuperheroeBO {
            }
        }       
         return danno;
+ }
+    public int consultaEscudoHeroe (String sel_esc)throws SQLException{
+         int proteccion = 0;
+         conn = conexion.getConnection();
+         try {
+             proteccion = sdao.consultaEscudoHeroe(conn, sel_esc);             
+             conn.commit();
+         } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null, e.getMessage());
+             conn.rollback();         
+         }finally{
+           try{
+               if(conn!= null){
+                   conn.close();
+               }
+           }catch(SQLException e){
+             JOptionPane.showMessageDialog(null, e.getMessage());
+           }
+       }       
+        return proteccion;
  }
     
 }

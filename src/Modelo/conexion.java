@@ -24,7 +24,7 @@ public class conexion {
            conn = DriverManager.getConnection(url, login, clave);
            conn.setAutoCommit(false);
            if(conn != null){
-               System.out.print("Conexion OK");
+               System.out.print("\nApertura de Conexion OK");
            }else{
                System.err.print("No se ha realizado la conexion");           
            }          

@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -87,5 +87,42 @@ public class SuperheroeDAO {
          }
            return danno;    
      }
+     public int consultaEscudoHeroe (Connection conn, String sel_esc){
+         int proteccion = 0;
+         PreparedStatement pst = null;
+         String tabla = "escudo";         
+         String sql = "select prot_esc from " + tabla + " where nom_esc =  ? ";        
+         try{
+             pst = conn.prepareStatement(sql);             
+             pst.setString(1,sel_esc);             
+             ResultSet rs = pst.executeQuery();
+             while(rs.next()){
+                  proteccion = rs.getInt("prot_esc");
+             }             
+             pst.execute();
+             pst.close();
+         }catch(SQLException | NullPointerException e){
+             System.out.print("Error no hay vida: " + e.getMessage());
+         }
+           return proteccion;    
+     }
+     
+     
+     
+      public void ListarEscudo (Connection conn, JComboBox nom_escudo){
+        PreparedStatement pst;
+        String tabla = "escudo";        
+        String sql = "select nom_esc from " +tabla;
+        try {
+            pst = conn.prepareStatement(sql);
+            ResultSet result = pst.executeQuery();
+            while (result.next()) {                
+                nom_escudo.addItem(result.getString("nom_esc"));
+            }
+        } catch (SQLException | NullPointerException e) {
+            System.out.println("No se pudo listar el nombre del superheroe");
+        }   
+    }
+    
     
 }

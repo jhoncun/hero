@@ -59,15 +59,16 @@ public class Superheroe {
     }  
     
        
-    public String atacar(Superheroe victima){          
+    public String atacar(Superheroe victima,Superheroe atacante){          
             int res;
             String msg;                    
             
-        res = victima.salud  ;      
+        res = (victima.salud + victima.proteccion)-atacante.danno; 
+        System.out.println("Victima salud:"+victima.salud + "\n victima proteccion: "+victima.proteccion+" \n daño atacante: "+atacante.danno );
         if(res <=0){
-            msg = "El atacante gano!";
+            msg = "El atacante gano! con un valor de " + res;
         }else{
-            msg = "La victima gano!";
+            msg = "La victima gano! con un valor de " + res;
         }
         return msg;
     } 
